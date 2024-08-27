@@ -378,7 +378,7 @@ impl Daemon {
     }
 
     pub fn magic(&self) -> u32 {
-        self.network.magic()
+        (0xc0c0c0c0 as u32)
     }
 
     fn call_jsonrpc(&self, method: &str, request: &Value) -> Result<Value> {
