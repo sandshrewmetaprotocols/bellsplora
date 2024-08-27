@@ -4,6 +4,8 @@ pub use bitcoin::{
     hash_types::TxMerkleNode, Address, Block, BlockHash, OutPoint, ScriptBuf as Script, Sequence,
     Transaction, TxIn, TxOut, Txid,
 };
+use bitcoin::hashes::{Hash};
+use hex::{FromHex};
 
 #[cfg(feature = "liquid")]
 pub use {
@@ -129,7 +131,7 @@ pub fn bitcoin_genesis_hash(network: BNetwork) -> bitcoin::BlockHash {
             genesis_block(BNetwork::Signet).block_hash();
     }
     match network {
-        BNetwork::Bitcoin => *BITCOIN_GENESIS,
+        BNetwork::Bitcoin => BlockHash::from_raw_hash(bitcoin::hashes::sha256d::Hash::from_slice(&<[u8; 32] as FromHex>::from_hex("e5be24df57c43a82d15c2f06bda961296948f8f8eb48501bed1efb929afe0698").unwrap()).unwrap()),
         BNetwork::Testnet => *TESTNET_GENESIS,
         BNetwork::Regtest => *REGTEST_GENESIS,
         BNetwork::Signet => *SIGNET_GENESIS,

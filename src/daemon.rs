@@ -338,7 +338,7 @@ impl Daemon {
         loop {
             let info = daemon.getblockchaininfo()?;
 
-            if !info.initialblockdownload.unwrap_or(false) && info.blocks == info.headers {
+            if info.blocks == info.headers {
                 break;
             }
 
